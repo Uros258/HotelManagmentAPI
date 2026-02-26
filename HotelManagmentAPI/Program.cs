@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using HotelManagmentAPI.Services.Guest;
 using HotelManagmentAPI.Services.Room;
 using HotelManagmentAPI.Services.Reservation;
+using HotelManagmentAPI.Services.Bill;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<HotelDbContext>(options =>
 builder.Services.AddScoped<IGuestService, GuestService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IBillService, BillService>();
 
 var app = builder.Build();
 
