@@ -1,11 +1,15 @@
 ﻿using HotelManagmentAPI.DTOs.Guest;
 using HotelManagmentAPI.Services.Guest;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelManagmentAPI.Controllers
 {
+    [Authorize(Roles = "Admin,Receptionist")]
     [ApiController]
     [Route("api/[controller]")]
+
+
     public class GuestsController : ControllerBase
     {
         private readonly IGuestService _guestService;

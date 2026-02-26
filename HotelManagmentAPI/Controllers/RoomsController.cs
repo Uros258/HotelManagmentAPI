@@ -1,11 +1,14 @@
 ﻿using HotelManagmentAPI.DTOs.Room;
 using HotelManagmentAPI.Services.Room;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace HotelManagmentAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
     public class RoomsController : ControllerBase
     {
         private readonly IRoomService _roomService;
@@ -16,6 +19,7 @@ namespace HotelManagmentAPI.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var rooms = await _roomService.GetAllRoomsAsync();
@@ -23,6 +27,8 @@ namespace HotelManagmentAPI.Controllers
         }
 
         [HttpGet("available")]
+        [AllowAnonymous]
+
         public async Task<IActionResult> GetAvailable()
         {
             var rooms = await _roomService.GetAvailableRoomsAsync();
@@ -30,6 +36,8 @@ namespace HotelManagmentAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
+
         public async Task<IActionResult> GetById(int id)
         {
             var room = await _roomService.GetRoomByIdAsync(id);
@@ -38,6 +46,7 @@ namespace HotelManagmentAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateRoomDto dto)
         {
             var room = await _roomService.CreateRoomAsync(dto);
@@ -45,6 +54,7 @@ namespace HotelManagmentAPI.Controllers
         }
 
         [HttpPatch("{id}/status")]
+        [Authorize(Roles = "Admin,Receptionist,Housekeeping")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateRoomStatusDto dto)
         {
             var room = await _roomService.UpdateRoomStatusAsync(id, dto);
@@ -53,6 +63,7 @@ namespace HotelManagmentAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _roomService.DeleteRoomAsync(id);

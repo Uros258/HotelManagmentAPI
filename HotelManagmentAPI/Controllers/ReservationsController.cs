@@ -1,9 +1,11 @@
 ﻿using HotelManagmentAPI.DTOs.Reservation;
 using HotelManagmentAPI.Services.Reservation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagmentAPI.Controllers
 {
+    [Authorize(Roles = "Admin,Receptionist")]
     [ApiController]
     [Route("api/[controller]")]
     public class ReservationsController : ControllerBase
