@@ -2,24 +2,21 @@
 
 namespace HotelManagmentAPI.Models
 {
-        public enum ReservationStatus {Pending, Confirmed, CheckedIn, CheckedOut, Canceled}
+    public enum ReservationStatus { Pending, Confirmed, CheckedIn, CheckedOut, Cancelled }
 
-        public class Reservation
-        {
-            public int ReservationId { get; set; }
-            public int GuestId {get; set; }
-            public int RoomId {  get; set; }
-            public DateTime CheckedIn { get; set; }
-            public DateTime CheckedOut { get; set; }
+    public class Reservation
+    {
+        public int ReservationId { get; set; }
+        public int GuestId { get; set; }
+        public int RoomId { get; set; }
+        public DateTime CheckInDate { get; set; }
+        public DateTime CheckOutDate { get; set; }
+        public decimal PricePerNight { get; set; }
+        public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-            public decimal PricePerNight {  get; set; }
-
-            public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
-
-            public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-            public Guest Guest { get; set; } = null!;
-            public Room Room { get; set; } = null!;
-            public Bill? Bill { get; set; }
+        public Guest Guest { get; set; } = null!;
+        public Room Room { get; set; } = null!;
+        public Bill? Bill { get; set; }
     }
 }
