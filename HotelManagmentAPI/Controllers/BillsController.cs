@@ -43,30 +43,16 @@ namespace HotelManagmentAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBillDto dto)
         {
-            try
-            {
-                var bill = await _billService.CreateBillAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = bill.BillId }, bill);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var bill = await _billService.CreateBillAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = bill.BillId }, bill);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateBillDto dto)
         {
-            try
-            {
-                var bill = await _billService.UpdateBillAsync(id, dto);
-                if (bill == null) return NotFound();
-                return Ok(bill);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var bill = await _billService.UpdateBillAsync(id, dto);
+            if (bill == null) return NotFound();
+            return Ok(bill);
         }
     }
 }

@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middleware\" />
-    <Folder Include="Validatiors\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 

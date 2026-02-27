@@ -42,15 +42,8 @@ namespace HotelManagmentAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateReservationDto dto)
         {
-            try
-            {
-                var reservation = await _reservationService.CreateReservationAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = reservation.ReservationId }, reservation);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var reservation = await _reservationService.CreateReservationAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = reservation.ReservationId }, reservation);
         }
 
         [HttpPatch("{id}/status")]
@@ -64,31 +57,17 @@ namespace HotelManagmentAPI.Controllers
         [HttpPatch("{id}/checkin")]
         public async Task<IActionResult> CheckIn(int id)
         {
-            try
-            {
-                var result = await _reservationService.CheckInAsync(id);
-                if (!result) return NotFound();
-                return Ok("Guest checked in successfully.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _reservationService.CheckInAsync(id);
+            if (!result) return NotFound();
+            return Ok("Guest checked in successfully.");
         }
 
         [HttpPatch("{id}/checkout")]
         public async Task<IActionResult> CheckOut(int id)
         {
-            try
-            {
-                var result = await _reservationService.CheckOutAsync(id);
-                if (!result) return NotFound();
-                return Ok("Guest checked out successfully.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _reservationService.CheckOutAsync(id);
+            if (!result) return NotFound();
+            return Ok("Guest checked out successfully.");
         }
 
         [HttpPatch("{id}/cancel")]

@@ -1,4 +1,8 @@
 using HotelManagmentAPI.Data;
+using HotelManagmentAPI.Middleware;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using HotelManagmentAPI.Validators.Guest;
 using HotelManagmentAPI.Services.Auth;
 using HotelManagmentAPI.Services.Bill;
 using HotelManagmentAPI.Services.Guest;
@@ -13,6 +17,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateGuestValidator>();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
@@ -84,6 +90,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
